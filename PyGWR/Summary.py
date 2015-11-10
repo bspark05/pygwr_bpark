@@ -23,13 +23,13 @@ from scipy import stats
     #GWRMod.R2 = Diagnostics.r2_GWR(GWRMod)
     #GWRMod.R2_adj = Diagnostics.ar2_GWR(GWRMod)
     #summary_GWR(GWRMod)
-    
+      
 #def summary_GWR(GWRMod):
     #"""
     #output summary in string
     #"""
     #dic_sum = {}
-    
+      
     #dic_sum['Caption'] = "%s\n" % ('Summary: Geographically Weighted Regression')
     #dic_sum['BeginT'] = "%-21s: %s %s\n" % ('Program started at', datetime.date(datetime.now()), datetime.strftime(datetime.now(),"%H:%M:%S"))
     #dic_sum['DataSource'] = "%s %s\n" % ('Data filename:', GWRMod.fle_name)
@@ -45,28 +45,28 @@ from scipy import stats
     #dic_sum['GWR_esti'] = "%s\n" % ('<< Geographically varying (Local) coefficients >>')
     #dic_sum['GWR_anova'] = "%s\n" %('GWR ANOVA Table') 
     #dic_sum['EndT'] = "%-21s: %s %s\n\n" % ('Program terminated at', datetime.date(datetime.now()), datetime.strftime(datetime.now(),"%H:%M:%S"))
-    
+      
     #dic_sum['Caption'] += '-' * 75 + '\n'
     #dic_sum['Caption'] += "\n"
-    
+      
     #dic_sum['DataSource'] += "%-45s %d\n" % ('Number of observations:', GWRMod.nObs) 
     #dic_sum['DataSource'] += "%-45s %d\n" % ('Number of Variables:', GWRMod.nVars) 
     #dic_sum['DataSource'] += "\n"   
-    
+      
     #dic_sum['ModSettings'] += '-' * 75 + '\n'
     #dic_sum['ModSettings'] += "%-45s %s\n" % ('Model type:', GWRMod.mName)
     #dic_sum['ModSettings'] += "%-45s %s\n" % ('Geographic kernel:', GWRMod.kernel.wName)
     #dic_sum['ModSettings'] += "\n"
-    
+      
     #dic_sum['ModOptions'] += '-' * 75 + '\n'
     #dic_sum['ModOptions'] += "\n"  
-       
+         
     #dic_sum['VarSettings'] += '-' * 75 + '\n'
     #dic_sum['VarSettings'] += "%-60s %s\n" % ('Dependent variable:', GWRMod.y_name)
     #for xVar in GWRMod.x_name:
         #dic_sum['VarSettings'] += "%-60s %s\n" % ('Independent variable with varying (Local) coefficient:', xVar)
     #dic_sum['VarSettings'] += "\n"   
-    
+      
     #dic_sum['GWRResult'] += '-' * 75 + '\n'
     #dic_sum['GWRResult'] += "%s\n" %('Geographic ranges')
     #dic_sum['GWRResult'] += "%-20s %20s %20s %20s\n" %('Coordinate', 'Min', 'Max', 'Range')
@@ -81,11 +81,11 @@ from scipy import stats
     #dic_sum['GWRResult'] += "%-20s %20.6f %20.6f %20.6f\n" %('X-coord', min_x, max_x, max_x-min_x)
     #dic_sum['GWRResult'] += "%-20s %20.6f %20.6f %20.6f\n" %('Y-coord', min_y, max_y, max_y-min_y)
     #dic_sum['GWRResult'] += "\n"
-    
+      
     #dic_sum['GWR_band'] += '-' * 75 + '\n'
     #dic_sum['GWR_band'] += "%-37s %20.6f\n" % ('Bandwidth size:', GWRMod.kernel.band)
     #dic_sum['GWR_band'] += "\n"
-    
+      
     #dic_sum['GWR_diag'] += '-' * 75 + '\n'
     #dic_sum['GWR_diag'] += "%-45s %12.6f\n" % ('Residual sum of squares:', np.sum(GWRMod.res**2))
     #dic_sum['GWR_diag'] += "%-60s %12.6f\n" % ('Effective number of parameters (model: trace(S)):', GWRMod.tr_S)
@@ -102,7 +102,7 @@ from scipy import stats
     #dic_sum['GWR_diag'] += "%-45s %12.6f\n" % ('R square:', GWRMod.R2)
     #dic_sum['GWR_diag'] += "%-45s %12.6f\n" % ('Adjusted R square:', GWRMod.R2_adj)
     #dic_sum['GWR_diag'] += "\n"
-    
+      
     #dic_sum['GWR_esti'] += "%s\n\n" % ('Summary statistics for varying (Local) coefficients')
     #dic_sum['GWR_esti'] += "%-20s %20s %20s\n" % ('Variable', 'Mean' ,'STD')
     #dic_sum['GWR_esti'] += "%-20s %20s %20s\n" % ('-'*20, '-'*20 ,'-'*20)
@@ -128,7 +128,7 @@ from scipy import stats
     #dic_sum['GWR_esti'] += "\n"    
     #dic_sum['GWR_esti'] += "%s\n" % ('(Note: Robust STD is given by (interquartile range / 1.349) )')
     #dic_sum['GWR_esti'] += "\n"
-    
+      
     #dic_sum['GWR_anova'] += '-' * 75 + '\n'
     #dic_sum['GWR_anova'] += "%-20s %20s %20s %20s %20s\n" % ('Source', 'SS', 'DF', 'MS', 'F')
     #dic_sum['GWR_anova'] += "%-20s %20s %20s %20s %20s\n" % ('-'*20, '-'*20, '-'*20, '-'*20, '-'*20)
@@ -141,7 +141,7 @@ from scipy import stats
         #dic_sum['GWR_anova'] += "%-20s %20.6f %20.6f %20.6f\n" % ('GWR Improvement', GWRMod.GLM.res2-GWRMod.res2, df_ols-df_gwr, ms_imp)
         #dic_sum['GWR_anova'] += "%-20s %20.6f %20.6f %20.6f %20.6f\n" % ('GWR Residuals', GWRMod.res2, df_gwr, ms_gwr, ms_imp/ms_gwr)
     #dic_sum['GWR_anova'] += "\n"
-    
+      
     #sumStr = '' 
     #sumStr += dic_sum['Caption']
     #sumStr += dic_sum['BeginT']
@@ -158,10 +158,10 @@ from scipy import stats
     #sumStr += dic_sum['GWR_esti']
     #sumStr += dic_sum['GWR_anova']    
     #sumStr += dic_sum['EndT']
-        
-    
+          
+      
     #GWRMod.summary = sumStr
-    
+      
 #def OLS(OLSMod):
     #"""
     #get diagnostics for OLS model
@@ -178,15 +178,15 @@ from scipy import stats
     #OLSMod.cv = Diagnostics.get_CV_OLS(OLSMod) 
     #OLSMod.sig2ML = OLSMod.sigma2_n 
     #OLSMod.mulColli = Diagnostics.ci_OLS(OLSMod)
-    
+      
     #summary_OLS(OLSMod)
-    
+      
 #def summary_OLS(OLSMod):
     #"""
     #output summary in string
     #"""
     #dic_sum = {}
-    
+      
     #dic_sum['Caption'] = "%s\n" % ('Summary: Ordinary Least Squares Estimation')
     #dic_sum['BeginT'] = "%-21s: %s %s\n" % ('Program started at', datetime.date(datetime.now()), datetime.strftime(datetime.now(),"%H:%M:%S"))
     #dic_sum['DataSource'] = "%s %s\n" % ('Data filename:', OLSMod.fle_name)
@@ -197,22 +197,22 @@ from scipy import stats
     #dic_sum['OLS_diag'] = "%s\n" % ('< Diagnostic information >')
     #dic_sum['OLS_esti'] = ''      
     #dic_sum['EndT'] = "%-21s: %s %s\n" % ('Program terminated at', datetime.date(datetime.now()), datetime.strftime(datetime.now(),"%H:%M:%S"))
-    
+      
     #dic_sum['Caption'] += '-' * 75 + '\n'
     #dic_sum['Caption'] += "\n"
-    
+      
     #dic_sum['DataSource'] += "%-45s %d\n" % ('Number of observations:', OLSMod.nObs) 
     #dic_sum['DataSource'] += "%-45s %d\n" % ('Number of Variables:', OLSMod.nVars) 
     #dic_sum['DataSource'] += "\n"
-    
+      
     #dic_sum['ModSettings'] += '-' * 75 + '\n'
     #dic_sum['ModSettings'] += "%-45s %s\n" % ('Model type:', OLSMod.mName)
     #dic_sum['ModSettings'] += "\n"
-    
+      
     #dic_sum['VarSettings'] += '-' * 75 + '\n'
     #dic_sum['VarSettings'] += "%-45s %12s\n" % ('Dependent variable:', OLSMod.y_name)
     #dic_sum['VarSettings'] += "\n"        
-    
+      
     #dic_sum['OLS_diag'] += '-' * 75 + '\n'
     #dic_sum['OLS_diag'] += "%-45s %12.6f\n" % ('Residual sum of squares:', OLSMod.res2)
     #dic_sum['OLS_diag'] += "%-45s %12.6f\n" % ('ML based global sigma estimate:', np.sqrt(OLSMod.sig2ML))
@@ -225,15 +225,15 @@ from scipy import stats
     #dic_sum['OLS_diag'] += "%-45s %12.6f\n" % ('R square:', OLSMod.r2)
     #dic_sum['OLS_diag'] += "%-45s %12.6f\n" % ('Adjusted R square:', OLSMod.ar2) 
     #dic_sum['OLS_diag'] += "\n"
-    
-    
+      
+      
     #dic_sum['OLS_esti'] += "%-20s %20s %20s %20s %20s\n" % ('Variable', 'Estimate', 'Standard Error' ,'t(Est/SE)', 'p-value')
     #dic_sum['OLS_esti'] += "---------------------------------------------------------------------------------------------------------\n"
     #for i in range(OLSMod.nVars):
         #dic_sum['OLS_esti'] += "%-20s %20.6f %20.6f %20.6f %20.6f\n" % (OLSMod.x_name[i], OLSMod.Betas[i], OLSMod.std_err[i] ,OLSMod.t_stat[i][0], OLSMod.t_stat[i][1])
-    
+      
     #dic_sum['OLS_esti'] += "\n"
-    
+      
     #sumStr = '' 
     #sumStr += dic_sum['Caption']
     #sumStr += dic_sum['BeginT']
@@ -245,8 +245,8 @@ from scipy import stats
     #sumStr += dic_sum['OLS_diag']    
     #sumStr += dic_sum['OLS_esti']
     #sumStr += dic_sum['EndT']
-        
-    
+          
+      
     #OLSMod.summary = sumStr
     
     

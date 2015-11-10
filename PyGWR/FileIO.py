@@ -7,7 +7,7 @@
 #import shapelib, dbflib
 import numpy as np
 #import shapely
-from shapely import *#geometry
+#from shapely import *#geometry
 import csv
 
 #--Global variables----------------------------------------------------------------
@@ -17,75 +17,75 @@ import csv
 
 #--1. read file--------------------------------------------------------------------
 
-def read_SHP(fleName):
-    """
-    Read shapefile(point/polygon) and return (x,y) and all the attribute values
-
-    Arguments:
-        fleName: text, full directory of shapefile name, including ".shp"
-
-    Return:
-        dicFeat: dictionary, key: id of feature, value: (x, y) coordinates
-        lstFlds: list, fields in the file
-        dicAttr: dictionary, key: id of feature, value: tuple of attribute values
-    """
-    #fleSHP = shapelib.ShapeFile(fleName)
-    nrec = fleSHP.info()[0]
-    geoType = fleSHP.info()[1]
-    dbfName = fleName.split(".")[0] + ".dbf"
-
-    dicFeat = {}
-    lstFlds = []
-    dicAttr = {}
-
-    # get (x,y)
-    #--for polygon, use centroid------------------
-    if geoType == 5:
-        for i in range(nrec):
-            vert = fleSHP.read_object(i)
-            poly = shapely.geometry.Polygon(vert.vertices()[0])
-            dicFeat[i] = (poly.centroid.x, poly.centroid.y)
-
-    #--for point----------------------------------
-    if geoType == 1:
-        for i in range(nrec):
-            vert = fleSHP.read_object(i)
-            dicFeat[i] = vert.vertices()[0]
-
-    # get record info
-    lstFlds, dicAttr = read_DBF(dbfName)
-
-    return dicFeat, lstFlds, dicAttr
-
-
-def read_DBF(fleName):
-    """
-    Read DBF file and return all the attribute values
-
-    Arguments:
-        fleName: text, full directory of DBF name, including ".dbf"
-
-    Return:
-        lstFlds: list, fields in the file
-        dicAttr: dictionary, key: id of feature, value: tuple of attribute values
-    """
-    #fleDBF = dbflib.DBFFile(fleName)
-    nrec = fleDBF.record_count()
-
-    lstFlds = []
-    dicAttr = {}
-    nFlds = fleDBF.field_count()
-    for i in range(nFlds):
-        lstFlds.append(fleDBF.field_info(i)[1])
-    #lstFlds = fleDBF.read_record(0).keys()
-    for i in range(nrec):
-        rec = fleDBF.read_record(i)
-        lst = []
-        for fld in lstFlds:
-            lst.append(rec[fld])
-        dicAttr[i] = tuple(lst)
-
-    return lstFlds, dicAttr
+# def read_SHP(fleName):
+#     """
+#     Read shapefile(point/polygon) and return (x,y) and all the attribute values
+# 
+#     Arguments:
+#         fleName: text, full directory of shapefile name, including ".shp"
+# 
+#     Return:
+#         dicFeat: dictionary, key: id of feature, value: (x, y) coordinates
+#         lstFlds: list, fields in the file
+#         dicAttr: dictionary, key: id of feature, value: tuple of attribute values
+#     """
+#     #fleSHP = shapelib.ShapeFile(fleName)
+#     nrec = fleSHP.info()[0]
+#     geoType = fleSHP.info()[1]
+#     dbfName = fleName.split(".")[0] + ".dbf"
+# 
+#     dicFeat = {}
+#     lstFlds = []
+#     dicAttr = {}
+# 
+#     # get (x,y)
+#     #--for polygon, use centroid------------------
+#     if geoType == 5:
+#         for i in range(nrec):
+#             vert = fleSHP.read_object(i)
+#             poly = shapely.geometry.Polygon(vert.vertices()[0])
+#             dicFeat[i] = (poly.centroid.x, poly.centroid.y)
+# 
+#     #--for point----------------------------------
+#     if geoType == 1:
+#         for i in range(nrec):
+#             vert = fleSHP.read_object(i)
+#             dicFeat[i] = vert.vertices()[0]
+# 
+#     # get record info
+#     lstFlds, dicAttr = read_DBF(dbfName)
+# 
+#     return dicFeat, lstFlds, dicAttr
+# 
+# 
+# def read_DBF(fleName):
+#     """
+#     Read DBF file and return all the attribute values
+# 
+#     Arguments:
+#         fleName: text, full directory of DBF name, including ".dbf"
+# 
+#     Return:
+#         lstFlds: list, fields in the file
+#         dicAttr: dictionary, key: id of feature, value: tuple of attribute values
+#     """
+#     #fleDBF = dbflib.DBFFile(fleName)
+#     nrec = fleDBF.record_count()
+# 
+#     lstFlds = []
+#     dicAttr = {}
+#     nFlds = fleDBF.field_count()
+#     for i in range(nFlds):
+#         lstFlds.append(fleDBF.field_info(i)[1])
+#     #lstFlds = fleDBF.read_record(0).keys()
+#     for i in range(nrec):
+#         rec = fleDBF.read_record(i)
+#         lst = []
+#         for fld in lstFlds:
+#             lst.append(rec[fld])
+#         dicAttr[i] = tuple(lst)
+# 
+#     return lstFlds, dicAttr
 
 def read_CSV(fleName):
     """
@@ -143,68 +143,68 @@ def read_TXT(fleName):
 
 #--End of read file--------------------------------------------------------------------
 
-#--2. write file-----------------------------------------------------------------------
-def write_SHP(fleName, geoType, geoList, fldList, attList):
-    """
-    Write shapefile(point/polygon) and associated DBF file
-
-    Arguments:
-        fleName: text, full directory of shapefile name, including ".shp"
-        geoType: integer, type of geometry, either "POINT" (1) or "POLYGON" (2)
-        geoList: list, including (x,y) series for each geometry.
-        fldList: list of tuples/lists, including names, types, precisions, scale of fields, [(name, type, precision, scale), (), ... ()]
-                 field type mapping is given by global variable "fldTypes".
-        attList: list of tuples, including values of attributes, [(val1, val2, ... valn), (), ... ()]
-
-    Return:
-        None
-    """
-    # check geometry type
-    if geoType == 1:
-        pass
-        #geo = shapelib.SHPT_POINT
-    if geoType == 2:
-        pass
-        #geo = shapelib.SHPT_POLYGON
-    if not (geoType == 1 or geoType == 2):
-        print "Please input a correct geometry type!"
-        exit
-
-    # create new shapefile
-    #fleSHP = shapelib.create(fleName, geo)
-    for elem in geoList:
-        #obj = shapelib.SHPObject(geo, 1, [[elem]])
-        fleSHP.write_object(-1, obj)
-
-    # create new dbf file
-    dbfName = fleName.split(".")[0] + ".dbf"
-    write_DBF(dbfName, fldList, attList)
-
-
-def write_DBF(fleName, fldList, attList):
-    """
-    Write DBF file
-
-    Arguments:
-        fleName: text, full directory of shapefile name, including ".dbf"
-        fldList: list of tuples/lists, including names, types, precisions, scale of fields, [(name, type, precision, scale), (), ... ()]
-                 field type mapping is given by global variable "fldTypes".
-        attList: list of tuples, including values of attributes, [(val1, val2, ... valn), (), ... ()]
-
-    Return:
-        None
-    """
-    #fleDBF = dbflib.create(fleName)
-
-    # add fields
-    for fld in fldList:
-        fleDBF.add_field(fld[0],fldTypes[fld[1]],fld[2],fld[3])
-
-    # add values
-    i = 0
-    for val in attList:
-        fleDBF.write_record(i, val)
-        i+=1
+# #--2. write file-----------------------------------------------------------------------
+# def write_SHP(fleName, geoType, geoList, fldList, attList):
+#     """
+#     Write shapefile(point/polygon) and associated DBF file
+# 
+#     Arguments:
+#         fleName: text, full directory of shapefile name, including ".shp"
+#         geoType: integer, type of geometry, either "POINT" (1) or "POLYGON" (2)
+#         geoList: list, including (x,y) series for each geometry.
+#         fldList: list of tuples/lists, including names, types, precisions, scale of fields, [(name, type, precision, scale), (), ... ()]
+#                  field type mapping is given by global variable "fldTypes".
+#         attList: list of tuples, including values of attributes, [(val1, val2, ... valn), (), ... ()]
+# 
+#     Return:
+#         None
+#     """
+#     # check geometry type
+#     if geoType == 1:
+#         pass
+#         #geo = shapelib.SHPT_POINT
+#     if geoType == 2:
+#         pass
+#         #geo = shapelib.SHPT_POLYGON
+#     if not (geoType == 1 or geoType == 2):
+#         print "Please input a correct geometry type!"
+#         exit
+# 
+#     # create new shapefile
+#     #fleSHP = shapelib.create(fleName, geo)
+#     for elem in geoList:
+#         #obj = shapelib.SHPObject(geo, 1, [[elem]])
+#         fleSHP.write_object(-1, obj)
+# 
+#     # create new dbf file
+#     dbfName = fleName.split(".")[0] + ".dbf"
+#     write_DBF(dbfName, fldList, attList)
+# 
+# 
+# def write_DBF(fleName, fldList, attList):
+#     """
+#     Write DBF file
+# 
+#     Arguments:
+#         fleName: text, full directory of shapefile name, including ".dbf"
+#         fldList: list of tuples/lists, including names, types, precisions, scale of fields, [(name, type, precision, scale), (), ... ()]
+#                  field type mapping is given by global variable "fldTypes".
+#         attList: list of tuples, including values of attributes, [(val1, val2, ... valn), (), ... ()]
+# 
+#     Return:
+#         None
+#     """
+#     #fleDBF = dbflib.create(fleName)
+# 
+#     # add fields
+#     for fld in fldList:
+#         fleDBF.add_field(fld[0],fldTypes[fld[1]],fld[2],fld[3])
+# 
+#     # add values
+#     i = 0
+#     for val in attList:
+#         fleDBF.write_record(i, val)
+#         i+=1
 
 
 def write_CSV(fleName, fldList, attList):
@@ -308,8 +308,11 @@ def get_subset(lstFlds, dicAttr, flds=None, rows=None):
 #--End of Get subset of data-----------------------------------------------------------
 
 #--Global variables----------------------------------------------------------------
-read_FILE = {0: read_CSV, 1: read_DBF, 2: read_TXT, 3: read_SHP} # use one function to read different types of files
-write_FILE = {0: write_CSV, 1: write_DBF, 2: write_TXT, 3: write_SHP} # use one function to write different types of files
+# read_FILE = {0: read_CSV, 1: read_DBF, 2: read_TXT, 3: read_SHP} # use one function to read different types of files
+# write_FILE = {0: write_CSV, 1: write_DBF, 2: write_TXT, 3: write_SHP} # use one function to write different types of files
+
+read_FILE = {0: read_CSV, 2: read_TXT} # use one function to read different types of files
+write_FILE = {0: write_CSV, 2: write_TXT} # use one function to write different types of files
 #----------------------------------------------------------------------------------
 
 
