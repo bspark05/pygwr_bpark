@@ -5,17 +5,21 @@ Created on Nov 9, 2015
 '''
 import PyGWR.FileIO as pyFileIO
 import matplotlib.pyplot as plt
+import seaborn as sns
+from array import array
+import numpy as np
+
 
 if __name__ == '__main__':
     
     csvResult = pyFileIO.read_CSV("test_csv.csv")
     print(csvResult)
-    
+     
     fieldName = csvResult[0]
     fieldValue = csvResult[1]
-    
+     
     print(fieldValue[0])
-    
+     
     xCoord = []
     yCoord = []
     attr1 = []
@@ -26,6 +30,13 @@ if __name__ == '__main__':
         yCoord.append(values[1])
         attr1.append(float(values[2]))
         attr2.append(float(values[3]))
-        
-    plt.scatter(xCoord, yCoord, c=attr2)
+ 
+#     xCoordArr = np.asarray(xCoord)
+#     yCoordArr = np.asarray(yCoord)
+#     cmap = sns.cubehelix_palette(light=1, as_cmap=True)
+#     sns.kdeplot(xCoordArr, yCoordArr, n_levels=30, cmap="Purples_d");
+    
+    plt.scatter(xCoord,yCoord)
     plt.show()
+
+    
