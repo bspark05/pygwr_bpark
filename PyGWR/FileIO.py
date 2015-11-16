@@ -104,13 +104,35 @@ def read_CSV(fleName):
     with open(fleName, 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
         rownum = 0
+        
         for row in spamreader:
+            #print(row)
             # Save header row.
             if rownum == 0:
-                header = row
-                lstFlds = header[0].split(',')
+                row1=[]
+                for rowElement in row:
+                    rowElement.replace(',','')
+                    row1.append(rowElement)
+                
+                header = row1
+                
+                lstFlds = []
+                for headElement in header[1:]:
+                    newHeadElement = headElement.split(',')[0]
+                    lstFlds.append(newHeadElement)
+                
             else:
-                dicAttr[rownum-1] = tuple(row[0].split(','))      # note: all value type is string, need to change to number for future analysis
+                rowRemoved = filter(None, row)
+                #print(rowRemoved)
+                
+                row3=[]
+                for row3Element in rowRemoved:
+                    newRow3Element = row3Element.split(',')[0]
+                    row3.append(newRow3Element)
+                
+                #print(row3)
+                
+                dicAttr[rownum-1] = tuple(row3)      # note: all value type is string, need to change to number for future analysis
             rownum += 1
     csvfile.close()
 
