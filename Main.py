@@ -216,17 +216,29 @@ def value6_map1(xCoord, yCoord, sList):
 
 if __name__ == '__main__':
     
-    filename1 = "SaleApartment2014"
-    filename2 = "_GWR_listwise"
+    filename1 = "SaleApartment20"
+    filename2 = "03_listwise"
     
-    fieldnameList = ['Intercept', 'AGE', 'COMPLEX', 'COMDIST', 'SUBWAY', 'MAJROAD', 'AGEAVE', 'POPDEN', 'BLSPOPF', 'FIRENO', 'CAR2012R', 'TAX', 'AREA_1', 'FLOOR1_1']
+    fieldnameList = ['Intercept', 'AGE', 'COMPLEX', 'COMDIST', 'SUBWAY', 'MAJROAD', 'AGEAVE', 'POPDEN', 'BLSPOPF', 'FIRENO', 'CAR2012R', 'TAX', 'AREA', 'FLOOR1']
+    
+    fieldnameList_t = ['std_residual'] 
+    fieldnameList_est = []
+    
+    for fieldname in fieldnameList:
+        fieldname_t = 't_'+fieldname
+        fieldname_est = 'est_'+fieldname
+        fieldnameList_t.append(fieldname_t)
+        fieldnameList_est.append(fieldname_est)
     
     
-#     for field in fieldnameList:
-#         fieldname = 'est_'+field
-#         
-#         i=1
-#         while i<=12:
+#     ## PART 1 - visualization of t-values
+#     
+#     
+#     #change fieldnameList 
+#     for fieldname in fieldnameList_t:
+#           
+#         i=6
+#         while i<=15:
 #             if i<10:
 #                 filename3 = filename1+'0'+str(i)
 #             else:
@@ -234,70 +246,78 @@ if __name__ == '__main__':
 #             i+=1    
 #             filename = filename3+filename2
 #             print(filename)
-#              
+#                
 #             lstFlds, dicAttr = pyFileIO.read_CSV(filename+".csv")    
-#          
+#            
 #             #print(dicAttr)
 #             #print(lstFlds)
-#      
-#              
+#        
+#                
 #             fieldIndex = lstFlds.index(fieldname)
-#              
+#                
 #             xCoord = []
 #             yCoord = []
 #             attr1 = []
-#              
+#                
 #             for values in dicAttr.itervalues():
 #                 #print(values)
 #                 xCoord.append(values[2])
 #                 yCoord.append(values[3])
 #                 attr1.append(float(values[fieldIndex+1]))      
-#             
-#                    
-#     #         fig, ax = sig6_map1(xCoord, yCoord, attr1)
+#               
+#     #change function                 
+#             # part 1-1 : visualization of t-values        
+#             fig, ax = sig6_map1(xCoord, yCoord, attr1)
 #              
-#             fig, ax = value6_map1(xCoord, yCoord, attr1)
 #              
+# #             # part 1-2 : visualization of estimates  
+# #             fig, ax = value6_map1(xCoord, yCoord, attr1)
+#                
 #             ax.set_xlabel(lstFlds[0])
 #             ax.set_ylabel(lstFlds[1])
 #             ax.axis('off')
-#             ax.set_title(lstFlds[fieldIndex]+"_"+filename[13:-13])
-#             fig.savefig("GWRresult/est_values/"+filename3+"_"+lstFlds[fieldIndex]+".png")
+#             ax.set_title(lstFlds[fieldIndex]+"_"+filename[13:-9])
+#             
+#     #change path        
+#             fig.savefig("GWRresult/t_values/"+filename3+"03_"+lstFlds[fieldIndex]+".png")
 #             print("save successfully")
          
     
-    
-    #fieldname = 'std_residual'
+    ## PART 2 - creating gif file
+     
+     
     filepath1 = 'E:/Programming/Eclipse/Git/pygwr_bpark/'
+    
+    #change folder
     filepath2 = 'GWRresult/est_values/'
     filepath3 = 'GWRresult/gif/'
     fileDir = os.path.join(os.path.dirname(__file__), filepath2)
     #print fileDir
-     
-    for field in fieldnameList:
+    
+    
+    #change fieldnameList  
+    for fieldname in fieldnameList_est:
         os.chdir(filepath1+filepath2)
         os.getcwd()
-         
-        fieldname = 'est_'+field
-         
+          
         images = []    
-        i=1
-        while i<=12:
+        i=6
+        while i<=15:
             if i<10:
                 filename3 = filename1+'0'+str(i)
             else:
                 filename3 = filename1+str(i)
             i+=1    
-            filename = filename3+'_'+fieldname+'.png'
-             
+            filename = filename3+'03_'+fieldname+'.png'
+              
             images.append(Image.open(filename))
-     
-          
+      
+           
         os.chdir(filepath1+filepath3)
         os.getcwd()
-          
+           
         gifname = filename1+'_'+fieldname+'.gif'
-          
+           
         writeGif(gifname, images, duration=1)
         print(gifname)
               
